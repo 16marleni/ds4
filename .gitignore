@@ -1,0 +1,12 @@
+# Ignorar carpeta de Visual Studio
+.vs/
+
+# Archivos de usuario y temporales
+*.user
+*.suo
+*.cache
+*.log
+
+# Archivos de sistema de Windows
+Thumbs.db
+Desktop.ini
