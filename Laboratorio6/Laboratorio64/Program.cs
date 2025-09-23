@@ -9,7 +9,7 @@ namespace Laboratorio64 //Para organizar el código
           if (age < 18)
           {
                 throw new ArithmeticException("Acceso negado - No cumple con el criterio de edad"); //Lanza una excepción si la edad es menor a 18
-            }
+          }
           else
           {
                 Console.WriteLine("Acceso Concedido");
