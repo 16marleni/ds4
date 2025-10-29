@@ -1,0 +1,84 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|c:\\users\\marle\\source\\repos\\ds4\\proyecto1\\proyecto1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|c:\\users\\marle\\source\\repos\\ds4\\proyecto1\\proyecto1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|c:\\users\\marle\\source\\repos\\ds4\\proyecto1\\proyecto1\\calculos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\calculos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|c:\\users\\marle\\source\\repos\\ds4\\proyecto1\\proyecto1\\proyecto1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{142DF77E-5524-4FDB-A4CD-96B40503B6F6}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\proyecto1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Calculos.cs",
+              "DocumentMoniker": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Calculos.cs",
+              "RelativeDocumentMoniker": "Proyecto1\\Calculos.cs",
+              "ToolTip": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Calculos.cs",
+              "RelativeToolTip": "Proyecto1\\Calculos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE0AAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T15:26:56.067Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Form1.cs",
+              "RelativeDocumentMoniker": "Proyecto1\\Form1.cs",
+              "ToolTip": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Form1.cs [Design]",
+              "RelativeToolTip": "Proyecto1\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T23:33:49.343Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Form1.cs",
+              "RelativeDocumentMoniker": "Proyecto1\\Form1.cs",
+              "ToolTip": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Form1.cs",
+              "RelativeToolTip": "Proyecto1\\Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ4AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-23T03:52:24.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Proyecto1.csproj",
+              "DocumentMoniker": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Proyecto1.csproj",
+              "RelativeDocumentMoniker": "Proyecto1\\Proyecto1.csproj",
+              "ToolTip": "C:\\Users\\marle\\source\\repos\\ds4\\Proyecto1\\Proyecto1\\Proyecto1.csproj",
+              "RelativeToolTip": "Proyecto1\\Proyecto1.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-24T15:26:24.362Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
