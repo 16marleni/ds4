@@ -1,0 +1,20 @@
+﻿<!-- Vista modificada para obtener todos los valores, se consume la API del Laboratorio181-->
+
+@{
+    ViewBag.Title = "Todos los Valores";
+}
+
+<main>
+
+    <!-- Mostrar mensaje de la API -->
+    <h2>Valores obtenidos del API</h2>
+    <ul>
+        @foreach (var item in ViewBag.Values)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
+
+
+</main>
