@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Tabla de Multiplicar"; // Establece el título de la página
+                                            // Encabezado de nivel 2 para el título de la página
+                                            // Formulario para ingresar el número el post indica que se enviará al servidor
+}
+
+<h2>Tabla de Multiplicar</h2>
+
+<form method="post">
+    <label>Ingrese un número:</label>
+    <input type="number" name="numero" required />
+    <button type="submit">Generar</button>
+</form>
+
+@if (ViewBag.Numero != null) // Verifica si se ha enviado un número y si no es nulo, viewbag.numero contiene el valor enviado
+
+//Los @ indican que se está utilizando código C# dentro del archivo Razor, un razor es una vista que combina HTML y C# para generar contenido dinámico en aplicaciones web ASP.NET MVC.
+// Lista no ordenada para mostrar la tabla de multiplicar
+{
+    <h3>Tabla del @ViewBag.Numero</h3>
+    <ul>
+        @for (int i = 1; i <= 25; i++)
+        {
+            <li>@ViewBag.Numero x @i = @(ViewBag.Numero * i)</li>
+            // Muestra cada línea de la tabla de multiplicar
+        }
+    </ul>
+}
+

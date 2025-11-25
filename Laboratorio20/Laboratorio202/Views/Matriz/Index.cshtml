@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Matriz N x N";
+}
+
+<h2>Matriz con diagonal inversa</h2>
+
+<form method="post">
+    <label>Ingrese N:</label>
+    <input type="number" name="n" min="1" required />
+    <button type="submit">Generar</button>
+</form>
+
+@if (ViewBag.N != null) // Verifica si se ha enviado un valor para N
+                       //viewbag es una forma de pasar datos desde el controlador a la vista en ASP.NET MVC
+
+//border collapse elimina los espacios entre las celdas de la tabla
+//border 1 agrega un borde de 1 pixel a la tabla
+//El primer for sirve para las filas y el segundo para las columnas{
+// if la condicion para la diagonal inversa es i+j=n-1
+// si se cumple se imprime 1 sino 0
+//tr es para filas y td para columnas
+
+{
+    <h3>Matriz de dimensión @ViewBag.N x @ViewBag.N</h3>
+    <table border="1" style="border-collapse:collapse; text-align:center;">
+        @for (int i = 0; i < ViewBag.N; i++)
+        {
+            <tr>
+                @for (int j = 0; j < ViewBag.N; j++)
+                {
+                    if (i + j == ViewBag.N - 1)
+                    {
+                        <td>1</td>
+                    }
+                    else
+                    {
+                        <td>0</td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+}
