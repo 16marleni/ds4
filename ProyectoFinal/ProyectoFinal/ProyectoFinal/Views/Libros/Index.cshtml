@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Libro>
+
+@{
+    ViewBag.Title = "Lista de libros";
+}
+
+<!-- Botón Agregar Nuevo -->
+<p style="text-align:right;">
+    @Html.ActionLink("Agregar nuevo libro", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Ver libros disponibles", "Disponibles", null, new { @class = "btn btn-info", style = "margin-left:5px;" })
+</p>
+
+<h2 style="text-align:left;">Lista de libros</h2>
+
+<!-- Mensaje de éxito -->
+@if (TempData["MensajeExito"] != null)
+{
+    <div class="alert alert-success" style="text-align:center;">
+        @TempData["MensajeExito"]
+    </div>
+}
+
+@if (TempData["MensajeAdvertencia"] != null)
+{
+    <div class="alert alert-warning" style="text-align:center;">
+        @TempData["MensajeAdvertencia"]
+    </div>
+}
+
+@if (TempData["MensajeInfo"] != null)
+{
+    <div class="alert alert-info" style="text-align:center;">
+        @TempData["MensajeInfo"]
+    </div>
+}
+
+<!-- Tabla de libros -->
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr style="text-align:center;">
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>Disponible</th>
+            <th>Cantidad</th>
+            <th>Fecha Registro</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align:center;">@item.Titulo</td>
+                <td style="text-align:center;">@item.Autor</td>
+                <td style="text-align:center;">@item.Categoria</td>
+                <td style="text-align:center;">
+                    @if (item.Disponible)
+                    {
+                        <i class="bi bi-check-lg text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="bi bi-x-lg text-danger"></i>
+                    }
+                </td>
+                <td style="text-align:center;">@item.Cantidad</td>
+                <td style="text-align:center;">@item.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                <td style="text-align:center;">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.LibroId }, new { @class = "btn btn-sm btn-primary" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.LibroId }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.LibroId }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botón de regresar a inicio -->
+ <p>
+     @Html.ActionLink("Volver a Inicio", "Index", "Inicio", null, new { @class = "btn btn-primary" })
+ </p>
+
+
+<!--Enlace para usar los iconos de Bootstrap-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

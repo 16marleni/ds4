@@ -1,0 +1,43 @@
+﻿@model ProyectoFinal.Models.Resenas
+@{
+    ViewBag.Title = "Eliminar reseña";
+}
+
+<h2 style="text-align:left;">Eliminar reseña</h2>
+
+<div class="alert alert-warning text-center">
+    ¿Está seguro que desea eliminar esta reseña?
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="card" style="max-width:600px; width:100%;">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">Usuario</dt>
+                <dd class="col-sm-8">@Model.Usuario</dd>
+
+                <dt class="col-sm-4">Libro</dt>
+                <dd class="col-sm-8">@Model.Libro</dd>
+
+                <dt class="col-sm-4">Comentario</dt>
+                <dd class="col-sm-8">@Model.Comentario</dd>
+
+                <dt class="col-sm-4">Calificación</dt>
+                <dd class="col-sm-8">@Model.Calificacion</dd>
+
+                <dt class="col-sm-4">Fecha</dt>
+                <dd class="col-sm-8">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.ResenaId)
+                <div class="form-group text-center mt-4">
+                    <input type="submit" value="Eliminar reseña" class="btn btn-danger" />
+                    @Html.ActionLink("Cancelar", "ReporteResenas", null, new { @class = "btn btn-secondary ms-2" })
+                </div>
+            }
+        </div>
+    </div>
+</div>

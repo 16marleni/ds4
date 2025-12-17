@@ -1,0 +1,41 @@
+﻿@model ProyectoFinal.Models.Resenas
+@{
+    ViewBag.Title = "Registrar Reseña";
+}
+
+<h2 style="text-align:left;">Registrar Reseña</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal" style="max-width:600px; text-align:left;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.Label("Libro")
+            @Html.DropDownListFor(model => model.LibroId, (SelectList)ViewBag.Libros, "Seleccione un libro", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.LibroId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comentario)
+            @Html.TextAreaFor(model => model.Comentario, new { @class = "form-control", rows = 4 })
+            @Html.ValidationMessageFor(model => model.Comentario, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Calificacion)
+            @Html.DropDownListFor(model => model.Calificacion, new SelectList(new[] { 1, 2, 3, 4, 5 }), "Seleccione una calificación", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Calificacion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <input type="submit" value="Registrar Reseña" class="btn btn-primary" />
+            @Html.ActionLink("Volver a Reseñas", "Index", null, new { @class = "btn btn-secondary", style = "margin-left:10px;" })
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

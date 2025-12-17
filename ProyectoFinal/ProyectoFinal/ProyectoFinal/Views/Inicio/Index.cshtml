@@ -1,0 +1,239 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Prestamos>
+
+@{
+    ViewBag.Title = "Inicio";
+    var prestamos = ViewBag.Prestamos as List<ProyectoFinal.Models.Prestamos> ?? new List<ProyectoFinal.Models.Prestamos>();
+    DateTime hoy = DateTime.Today;
+
+    // Información adicional
+    string datoCurioso = "¿Sabías que 'Cien años de soledad' de Gabriel García Márquez ha sido traducido a más de 37 idiomas?";
+    string libroDestacado = "Libro destacado: 'El Principito' – una historia que encanta a grandes y chicos por igual.";
+    string descripcionBiblioteca = "En Biblioteca Rocket, fomentamos la lectura, el conocimiento y la cultura para todos nuestros usuarios. Ofrecemos una amplia colección de libros y recursos digitales, con atención personalizada y programas de fomento a la lectura.";
+    string infoImportante = "Horario: Lunes a Viernes de 8:00 a.m. a 5:00 p.m. | Contacto: info@bibliotecarocket.com | Tel: 555-1234";
+}
+<h2>¡Bienvenido!</h2>
+
+<!-- Bloque informativo siempre visible -->
+<div class="alert alert-primary mt-3">
+    <p class="text-center"><em>@descripcionBiblioteca</em></p>
+    <p class="text-center"><strong>@infoImportante</strong></p>
+    <hr />
+    <p class="text-center"><strong>Dato curioso:</strong> @datoCurioso</p>
+    <p class="text-center"><strong>@libroDestacado</strong></p>
+</div>
+
+
+@if (TempData["ErrorLogin"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorLogin"]
+    </div>
+}
+
+
+@if (Session["UsuarioId"] == null)
+{
+    <h4>Inicia sesión</h4>
+    using (Html.BeginForm("Login", "Inicio", FormMethod.Post))
+    {
+        <div class="mb-3">
+            <label>Correo:</label>
+            <input type="email" name="correo" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+    }
+}
+else
+{
+    <div class="alert alert-success">
+        ¡Hola, @Session["NombreUsuario"] (@Session["TipoUsuario"])!
+        <!-- Botón para cerrar sesión -->
+        @Html.ActionLink("Cerrar sesión", "Logout", "Inicio", null, new { @class = "btn btn-sm btn-danger mt-2" })
+    </div>
+
+}
+
+<hr />
+
+<h4>Consultar préstamos por correo</h4>
+@using (Html.BeginForm("ConsultarPrestamos", "Inicio", FormMethod.Post))
+{
+    <div class="mb-3">
+        <label>Correo del cliente:</label>
+        <input type="email" name="correo" class="form-control" value="@ViewBag.CorreoConsulta" required />
+    </div>
+    <button type="submit" class="btn btn-info">Consultar</button>
+}
+
+@if (prestamos.Count > 0)
+{
+    <h4>Préstamos encontrados</h4>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Fecha de préstamo</th>
+                <th>Fecha de vencimiento</th>
+                <th>Fecha de devolución</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in prestamos)
+            {
+                string estadoTexto;
+                string clase;
+
+                if (p.Estado == "Devuelto")
+                {
+                    estadoTexto = "Devuelto";
+                    clase = "badge bg-secondary text-white";
+                }
+                else
+                {
+                    if (p.FechaVencimiento < hoy)
+                    {
+                        estadoTexto = "Vencido";
+                        clase = "badge bg-danger text-white";
+                    }
+                    else if ((p.FechaVencimiento - hoy).Days <= 2)
+                    {
+                        estadoTexto = "Por vencer";
+                        clase = "badge bg-warning text-dark";
+                    }
+                    else
+                    {
+                        estadoTexto = "En tiempo";
+                        clase = "badge bg-success text-white";
+                    }
+                }
+
+                <tr>
+                    <td>@p.Libro</td>
+                    <td>@p.FechaPrestamo.ToString("dd/MM/yyyy")</td>
+                    <td>@p.FechaVencimiento.ToString("dd/MM/yyyy")</td>
+                    <td>@(p.FechaDevolucion.HasValue ? p.FechaDevolucion.Value.ToString("dd/MM/yyyy") : "-")</td>
+                    <td><span class="@clase">@estadoTexto</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (!string.IsNullOrEmpty(ViewBag.CorreoConsulta))
+{
+    <div class="alert alert-warning">No se encontraron préstamos para el correo ingresado.</div>
+}
+
+<style>
+    body {
+        background: url('/Content/imagenes/fondo.jpg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #000;
+    }
+
+    /* Bloques informativos */
+    .alert-primary {
+        background-color: rgba(255, 255, 255, 0.85);
+        color: #004085;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+        .alert-primary h3 {
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #002966;
+            text-shadow: 1px 1px 2px #aaa;
+        }
+
+        .alert-primary p {
+            margin: 5px 0;
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+    .alert-success {
+        background-color: rgba(144,238,144,0.85);
+        color: #000;
+        text-align: center; /* centra el contenido */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+
+    /* Titulos principales */
+    h2 {
+        font-size: 2.5rem; /* más grande */
+        font-weight: bold;
+        color: #fff; /* blanco */
+        text-align: center;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.7); /* sombra más visible */
+        margin-bottom: 25px;
+    }
+
+    h4 {
+        font-size: 1.5rem; /* más grande */
+        font-weight: bold;
+        color: #fff; /* blanco */
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* Tablas */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background-color: rgba(240, 248, 255, 0.9); /* azul muy claro semitransparente */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    th {
+        background-color: rgba(200, 200, 255, 0.9);
+        color: #000;
+        padding: 10px;
+        text-align: center;
+    }
+
+    td {
+        padding: 10px;
+        color: #000;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /* Badges */
+    .badge {
+        font-size: 0.85em;
+        padding: 5px 10px;
+    }
+
+    /* Formularios de login y consulta */
+    .mb-3 {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    input.form-control {
+        background-color: rgba(255,255,255,0.95);
+        color: #000;
+    }
+
+    /* Botones */
+    .btn {
+        margin-top: 5px;
+    }
+</style>
+
+

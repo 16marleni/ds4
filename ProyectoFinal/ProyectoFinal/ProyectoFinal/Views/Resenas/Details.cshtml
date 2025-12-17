@@ -1,0 +1,33 @@
+﻿@model ProyectoFinal.Models.Resenas
+@{
+    ViewBag.Title = "Detalles de la reseña";
+}
+
+<h2 style="text-align:center;">Detalles de la reseña</h2>
+
+<div class="d-flex justify-content-center">
+    <div class="card" style="max-width:600px; width:100%;">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">Usuario</dt>
+                <dd class="col-sm-8">@Model.Usuario</dd>
+
+                <dt class="col-sm-4">Libro</dt>
+                <dd class="col-sm-8">@Model.Libro</dd>
+
+                <dt class="col-sm-4">Comentario</dt>
+                <dd class="col-sm-8">@Model.Comentario</dd>
+
+                <dt class="col-sm-4">Calificación</dt>
+                <dd class="col-sm-8">@Model.Calificacion</dd>
+
+                <dt class="col-sm-4">Fecha</dt>
+                <dd class="col-sm-8">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                @Html.ActionLink("Volver a Reseñas", "ReporteResenas", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+</div>

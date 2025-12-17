@@ -1,0 +1,52 @@
+﻿@model ProyectoFinal.Models.Usuario
+
+@{
+    ViewBag.Title = "Editar Usuario";
+
+    // Opciones de tipo usuario
+    var tiposUsuario = new List<SelectListItem>
+{
+        new SelectListItem { Text = "Cliente", Value = "Cliente" },
+        new SelectListItem { Text = "Administrativo", Value = "Administrativo" }
+    };
+}
+
+<h2 style="text-align:left;">Editar usuario</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="max-width:600px; text-align:left;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.UsuarioId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre)
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Correo)
+            @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoUsuario)
+            @Html.DropDownListFor(model => model.TipoUsuario, new SelectList(tiposUsuario, "Value", "Text", Model.TipoUsuario), "Seleccione tipo de usuario", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TipoUsuario, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+            @Html.ActionLink("Volver a Lista de usuarios", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,55 @@
+﻿@model ProyectoFinal.Models.Prestamos
+
+@{
+    ViewBag.Title = "Eliminar préstamo";
+}
+
+<h2 style="text-align:left;">Eliminar préstamo</h2>
+
+<div class="alert alert-warning text-center">
+    Solo se permite eliminar un préstamo si ya ha sido devuelto.<br />
+    ¿Está seguro que desea eliminar este registro?
+</div>
+
+<!-- Contenedor centrado -->
+<div class="d-flex justify-content-center">
+    <div class="card" style="max-width:600px; width:100%;">
+        <div class="card-body">
+
+            <dl class="row">
+                <dt class="col-sm-4">Usuario</dt>
+                <dd class="col-sm-8">@Model.Usuario</dd>
+
+                <dt class="col-sm-4">Libro</dt>
+                <dd class="col-sm-8">@Model.Libro</dd>
+
+                <dt class="col-sm-4">Fecha Préstamo</dt>
+                <dd class="col-sm-8">@Model.FechaPrestamo.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-4">Fecha Vencimiento</dt>
+                <dd class="col-sm-8">@Model.FechaVencimiento.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-4">Estado</dt>
+                <dd class="col-sm-8">@Model.Estado</dd>
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.PrestamoId)
+
+                <div class="form-group text-center mt-4">
+                    <input type="submit" value="Eliminar préstamo" class="btn btn-danger" />
+
+                    @Html.ActionLink(
+                        "Cancelar",
+                        "Index",
+                        null,
+                        new { @class = "btn btn-secondary ms-2" }
+                    )
+                </div>
+            }
+        </div>
+    </div>
+</div>

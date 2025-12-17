@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @{
+        bool esPDF = ViewBag.EsPDF != null && (bool)ViewBag.EsPDF;
+    }
+    <title>@ViewBag.Title@(esPDF ? "" : " - Biblioteca Rocket")</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @if (!esPDF)
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Inicio")">
+                    <img src="~/Content/imagenes/logo.png" alt="Logo Biblioteca" style="height:50px; margin-right:10px;" />
+                    <span>BIBLIOTECA ROCKET</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Inicio", "Index", "Inicio", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Libros disponibles", "Disponibles", "Libros", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Historial de Reseñas", "ReporteResenas", "Resenas", null, new { @class = "nav-link" })
+                        </li>
+
+
+
+                        @* Dropdown Administrativo *@
+                        @if (Session["UsuarioId"] != null && Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString() == "Administrativo")
+                        {
+                            <li>@Html.ActionLink("Mis Reseñas", "MisResenas", "Resenas", null, new { @class = "nav-link" })</li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administración
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <li>@Html.ActionLink("Libros", "Index", "Libros", null, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Prestamos", "Index", "Prestamos", null, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", null, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Reseñas", "Index", "Resenas", null, new { @class = "dropdown-item" })</li>
+
+                                </ul>
+                            </li>
+                        }
+
+                        @* Cliente *@
+                        else if (Session["UsuarioId"] != null && Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString() == "Cliente")
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Mis Reseñas", "MisResenas", "Resenas", null, new { @class = "nav-link" })
+                            </li>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (Session["UsuarioId"] != null)
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Cerrar Sesión", "Logout", "Inicio", null, new { @class = "nav-link" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Iniciar Sesión", "Index", "Inicio", null, new { @class = "nav-link" })
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    }
+
+    <div class="container body-content" style="margin-top:20px;">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year @(esPDF ? "" : "- Biblioteca Rocket")</p>
+        </footer>
+    </div>
+
+    @* Bootstrap 5 bundle incluye Popper necesario para dropdown *@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

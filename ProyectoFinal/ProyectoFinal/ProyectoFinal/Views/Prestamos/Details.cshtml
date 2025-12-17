@@ -1,0 +1,44 @@
+﻿@model ProyectoFinal.Models.Prestamos
+
+@{
+    ViewBag.Title = "Detalles del préstamo";
+}
+
+<h2 style="text-align:center;">Detalles del préstamo</h2>
+
+<!-- Contenedor centrado -->
+<div class="d-flex justify-content-center">
+    <div class="card" style="max-width:600px; width:100%;">
+        <div class="card-body">
+
+            <dl class="row">
+                <dt class="col-sm-4">Usuario</dt>
+                <dd class="col-sm-8">@Model.Usuario</dd>
+
+                <dt class="col-sm-4">Libro</dt>
+                <dd class="col-sm-8">@Model.Libro</dd>
+
+                <dt class="col-sm-4">Fecha Préstamo</dt>
+                <dd class="col-sm-8">@Model.FechaPrestamo.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-4">Fecha Vencimiento</dt>
+                <dd class="col-sm-8">@Model.FechaVencimiento.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-4">Fecha Devolución</dt>
+                <dd class="col-sm-8">
+                    @(Model.FechaDevolucion.HasValue
+                        ? Model.FechaDevolucion.Value.ToString("dd/MM/yyyy")
+                        : "No devuelto")
+                </dd>
+
+                <dt class="col-sm-4">Estado</dt>
+                <dd class="col-sm-8">@Model.Estado</dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                @Html.ActionLink("Volver a Lista de préstamos", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+
+        </div>
+    </div>
+</div>

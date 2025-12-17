@@ -1,0 +1,35 @@
+﻿@model ProyectoFinal.Models.Usuario
+
+@{
+    ViewBag.Title = "Detalles del Usuario";
+}
+
+<div class="container" style="max-width:600px; margin:auto;">
+    <h4 style="text-align:center; margin-bottom:20px;">Detalles del usuario "@Model.Nombre"</h4>
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th style="width:40%;">Nombre</th>
+                <td style="text-align:center;">@Model.Nombre</td>
+            </tr>
+            <tr>
+                <th>Correo</th>
+                <td style="text-align:center;">@Model.Correo</td>
+            </tr>
+            <tr>
+                <th>Tipo de Usuario</th>
+                <td style="text-align:center;">@Model.TipoUsuario</td>
+            </tr>
+            <tr>
+                <th>Fecha Registro</th>
+                <td style="text-align:center;">@Model.FechaRegistro.ToString("dd/MM/yyyy")</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align:center; margin-top:20px;">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.UsuarioId }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Volver a Lista de usuarios", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>

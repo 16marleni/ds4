@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Prestamos>
+
+@{
+    ViewBag.Title = "Lista de préstamos";
+}
+
+<!-- Botón Agregar Nuevo -->
+<p style="text-align:right;">
+    @Html.ActionLink("Registrar préstamo", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Ver préstamos activos", "Activos", null, new { @class = "btn btn-info", style = "margin-left:5px;" })
+</p>
+
+<h2 style="text-align:left;">Lista de préstamos</h2>
+
+<!-- Mensajes -->
+@if (TempData["MensajeExito"] != null)
+{
+    <div class="alert alert-success" style="text-align:center;">
+        @TempData["MensajeExito"]
+    </div>
+}
+
+@if (TempData["MensajeAdvertencia"] != null)
+{
+    <div class="alert alert-warning" style="text-align:center;">
+        @TempData["MensajeAdvertencia"]
+    </div>
+}
+
+@if (TempData["MensajeInfo"] != null)
+{
+    <div class="alert alert-info" style="text-align:center;">
+        @TempData["MensajeInfo"]
+    </div>
+}
+
+<!-- Tabla de préstamos -->
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr style="text-align:center;">
+            <th>Usuario</th>
+            <th>Libro</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align:center;">@item.Usuario</td>
+                <td style="text-align:center;">@item.Libro</td>
+                <td style="text-align:center;">@item.FechaPrestamo.ToString("dd/MM/yyyy")</td>
+                <td style="text-align:center;">
+                    @(item.FechaDevolucion.HasValue
+                        ? item.FechaDevolucion.Value.ToString("dd/MM/yyyy")
+                        : "-")
+                </td>
+                <td style="text-align:center;">@item.Estado</td>
+                <td style="text-align:center;">
+
+                    @Html.ActionLink(
+                        "Detalles",
+                        "Details",
+                        new { id = item.PrestamoId },
+                        new { @class = "btn btn-sm btn-info" }
+                    )
+
+                    @if (item.Estado == "Activo")
+                    {
+                        @Html.ActionLink(
+                            "Devolver",
+                            "Devolver",
+                            new { id = item.PrestamoId },
+                            new { @class = "btn btn-sm btn-primary", style = "margin-left:3px;" }
+                        )
+                    }
+
+                    @if (item.Estado == "Devuelto")
+                    {
+                        @Html.ActionLink(
+                            "Eliminar",
+                            "Delete",
+                            new { id = item.PrestamoId },
+                            new { @class = "btn btn-sm btn-danger", style = "margin-left:3px;" }
+                        )
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botón de regresar a inicio -->
+<p>
+    @Html.ActionLink("Volver a Inicio", "Index", "Inicio", null, new { @class = "btn btn-primary" })
+</p>
+

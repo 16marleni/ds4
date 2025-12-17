@@ -1,0 +1,125 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Prestamos>
+
+@{
+    ViewBag.Title = "Reporte de Préstamos Activos";
+    var fechaReporte = DateTime.Now.ToString("dd/MM/yyyy");
+    DateTime hoy = DateTime.Today;
+    bool esPDF = ViewBag.EsPDF != null && (bool)ViewBag.EsPDF;
+}
+
+<!-- Encabezado con logo y nombre -->
+<div style="text-align:center; margin-bottom:20px;">
+    <img src="~/Content/imagenes/logo.png" alt="Logo Biblioteca" style="height:100px;" />
+    <h1>BIBLIOTECA ROCKET</h1>
+    <h3>Reporte de Préstamos Activos</h3>
+    <p>Fecha del reporte: @fechaReporte</p>
+</div>
+
+<!-- Botón para exportar a PDF -->
+@if (!esPDF)
+{
+    <p style="text-align:right;">
+        @Html.ActionLink("Exportar a PDF", "ExportarPDF", null, new { @class = "btn btn-danger" })
+    </p>
+}
+
+<!-- Mensajes -->
+@if (TempData["MensajeExito"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["MensajeExito"]
+    </div>
+}
+
+@if (TempData["MensajeInfo"] != null)
+{
+    <div class="alert alert-info text-center">
+        @TempData["MensajeInfo"]
+    </div>
+}
+
+<!-- Tabla de préstamos activos -->
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr style="text-align:center;">
+            <th>Usuario</th>
+            <th>Libro</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Vencimiento</th>
+            <th>Estado</th>
+            @if (!esPDF)
+            {
+                <th>Acciones</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string estadoTexto;
+            string clase;
+
+            if (item.FechaVencimiento < hoy)
+            {
+                estadoTexto = "Vencido";
+                clase = "badge bg-danger text-white";
+            }
+            else if ((item.FechaVencimiento - hoy).Days <= 2)
+            {
+                estadoTexto = "Por vencer";
+                clase = "badge bg-warning text-dark";
+            }
+            else
+            {
+                estadoTexto = "En tiempo";
+                clase = "badge bg-success text-white";
+            }
+
+            <tr>
+                <td style="text-align:center;">@item.Usuario</td>
+                <td style="text-align:center;">@item.Libro</td>
+                <td style="text-align:center;">
+                    @item.FechaPrestamo.ToString("dd/MM/yyyy")
+                </td>
+                <td style="text-align:center;">
+                    @item.FechaVencimiento.ToString("dd/MM/yyyy")
+                </td>
+                <td style="text-align:center;">
+                    <span class="@clase">@estadoTexto</span>
+                </td>
+
+                @if (!esPDF)
+                {
+                    <td style="text-align:center;">
+                        @Html.ActionLink(
+                            "Devolver",
+                            "Devolver",
+                            new { id = item.PrestamoId },
+                            new { @class = "btn btn-sm btn-primary" }
+                        )
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botón volver -->
+@if (!esPDF)
+{
+    <p>
+        @Html.ActionLink(
+            "Volver a Lista de préstamos",
+            "Index",
+            null,
+            new { @class = "btn btn-primary" }
+        )
+    </p>
+}
+
+<!-- Estilos adicionales -->
+<style>
+    th {
+        text-align: center;
+    }
+</style>

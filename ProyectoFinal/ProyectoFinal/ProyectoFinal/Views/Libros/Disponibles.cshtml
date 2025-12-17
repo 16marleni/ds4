@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Libro>
+
+@{
+    ViewBag.Title = "Reporte de Libros Disponibles";
+    var fechaReporte = DateTime.Now.ToString("dd/MM/yyyy");
+    bool esPDF = ViewBag.EsPDF != null && (bool)ViewBag.EsPDF; // Detecta si es PDF
+}
+
+<!-- Encabezado con logo y nombre -->
+<div style="text-align:center; margin-bottom:20px;">
+    <img src="~/Content/imagenes/logo.png" alt="Logo Biblioteca" style="height:100px;" />
+    <h1>BIBLIOTECA ROCKET</h1>
+    <h3>Reporte de Libros Disponibles</h3>
+    <p>Fecha del reporte: @fechaReporte</p>
+</div>
+
+<!-- Botón para exportar a PDF -->
+@if (!esPDF)
+{
+    <p style="text-align:right;">
+        @Html.ActionLink("Exportar a PDF", "ExportarPDF", null, new { @class = "btn btn-danger" })
+    </p>
+}
+
+<!-- Tabla de libros -->
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr style="text-align:center;">
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Cantidad</th>
+            <th>Categoría</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var libro in Model)
+        {
+            <tr>
+                <td style="text-align:center;">@libro.Titulo</td>
+                <td style="text-align:center;">@libro.Autor</td>
+                <td style="text-align:center;">@libro.Cantidad</td>
+                <td style="text-align:center;">@libro.Categoria</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botón de regresar a inicio -->
+@if (!esPDF)
+{
+    <p>
+        @Html.ActionLink("Volver a Inicio", "Index", "Inicio", null, new { @class = "btn btn-primary" })
+    </p>
+}
+
+<!-- Estilos adicionales -->
+<style>
+    th {
+        text-align: center;
+    }
+</style>

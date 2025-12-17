@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Resenas>
+
+@{
+    ViewBag.Title = "Mis Reseñas";
+    var fechaReporte = DateTime.Now.ToString("dd/MM/yyyy");
+    bool esPDF = ViewBag.EsPDF != null && (bool)ViewBag.EsPDF;
+    int usuarioId = (int)Session["UsuarioId"];
+}
+
+<!-- Encabezado con logo y nombre -->
+<div style="text-align:center; margin-bottom:20px;">
+    <img src="~/Content/imagenes/logo.png" alt="Logo Biblioteca" style="height:100px;" />
+    <h1>BIBLIOTECA ROCKET</h1>
+    <h3>Mis Reseñas</h3>
+    <p>Fecha del reporte: @fechaReporte</p>
+</div>
+
+<!-- Botones superiores -->
+@if (!esPDF)
+{
+    <p style="text-align:right;">
+        @Html.ActionLink("Agregar reseña", "Create", null, new { @class = "btn btn-success", style = "margin-right:5px;" })
+        @Html.ActionLink("Exportar a PDF", "PDFMisResenas", null, new { @class = "btn btn-danger" })
+    </p>
+}
+
+<!-- Mensajes -->
+@if (TempData["MensajeExito"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["MensajeExito"]</div>
+}
+@if (TempData["MensajeAdvertencia"] != null)
+{
+    <div class="alert alert-warning text-center">@TempData["MensajeAdvertencia"]</div>
+}
+@if (TempData["MensajeInfo"] != null)
+{
+    <div class="alert alert-info text-center">@TempData["MensajeInfo"]</div>
+}
+
+<!-- Leyenda de calificaciones -->
+<div class="alert alert-secondary text-center" style="margin-bottom:15px;">
+    <strong>Calificación:</strong>
+    <span style="margin-left:10px;"><strong>1</strong> = Muy malo</span> |
+    <span style="margin-left:5px;"><strong>2</strong> = Malo</span> |
+    <span style="margin-left:5px;"><strong>3</strong> = Regular</span> |
+    <span style="margin-left:5px;"><strong>4</strong> = Bueno</span> |
+    <span style="margin-left:5px;"><strong>5</strong> = Excelente</span>
+</div>
+
+<!-- Tabla de reseñas del usuario -->
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr style="text-align:center;">
+            <th>Libro</th>
+            <th>Comentario</th>
+            <th>Calificación</th>
+            <th>Fecha</th>
+            @if (!esPDF)
+            {
+                <th>Acciones</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(r => r.UsuarioId == usuarioId))
+        {
+            <tr>
+                <td style="text-align:center;">@item.Libro</td>
+                <td style="text-align:center;">@item.Comentario</td>
+                <td style="text-align:center;">@item.Calificacion</td>
+                <td style="text-align:center;">@item.Fecha.ToString("dd/MM/yyyy")</td>
+
+                @if (!esPDF)
+                {
+                    <td style="text-align:center;">
+                        @Html.ActionLink("Detalles", "Details", new { id = item.ResenaId }, new { @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ResenaId }, new { @class = "btn btn-warning btn-sm", style = "margin-left:3px;" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ResenaId }, new { @class = "btn btn-danger btn-sm", style = "margin-left:3px;" })
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!esPDF)
+{
+    <p>
+        @Html.ActionLink("Volver a Inicio", "Index", "Inicio", null, new { @class = "btn btn-primary" })
+    </p>
+}
+
+<style>
+    th {
+        text-align: center;
+    }
+</style>

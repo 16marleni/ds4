@@ -1,0 +1,43 @@
+﻿@model ProyectoFinal.Models.Resenas
+@{
+    ViewBag.Title = "Editar reseña";
+}
+
+<h2 style="text-align:left;">Editar reseña</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ResenaId)
+    @Html.HiddenFor(model => model.LibroId)
+
+    <div class="form-horizontal" style="max-width:600px; text-align:left;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.Label("Libro")
+            <input type="text" class="form-control" value="@Model.Libro" readonly />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comentario)
+            @Html.TextAreaFor(model => model.Comentario, new { @class = "form-control", rows = 4 })
+            @Html.ValidationMessageFor(model => model.Comentario, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Calificacion)
+            @Html.TextBoxFor(model => model.Calificacion, new { @class = "form-control", type = "number", min = "1", max = "5" })
+            @Html.ValidationMessageFor(model => model.Calificacion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <input type="submit" value="Actualizar reseña" class="btn btn-primary" />
+            @Html.ActionLink("Volver a Reseñas", "ReporteResenas", null, new { @class = "btn btn-secondary", style = "margin-left:10px;" })
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

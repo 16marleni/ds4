@@ -1,0 +1,37 @@
+﻿@model ProyectoFinal.Models.Libro
+
+@{
+    ViewBag.Title = "Eliminar Libro";
+}
+
+<div class="container" style="max-width:800px; margin:auto;">
+    <h4 style="text-align:center; margin-bottom:20px;">¿Está seguro que desea eliminar este libro?</h4>
+
+    <!-- Tabla con los datos del libro -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr style="text-align:center;">
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Categoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align:center;">
+                <td>@Model.Titulo</td>
+                <td>@Model.Autor</td>
+                <td>@Model.Categoria</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Botones -->
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div style="text-align:center; margin-top:20px;">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            @Html.ActionLink("Volver a Lista de libros", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    }
+</div>
